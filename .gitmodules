@@ -1,0 +1,3 @@
+[submodule "system/library/twitter-async"]
+	path = system/library/twitter-async
+	url = https://github.com/jmathai/twitter-async
