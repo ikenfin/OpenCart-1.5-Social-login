@@ -19,6 +19,8 @@ class ControllerModuleSociallogin extends Controller {
 
 		$this->load->model('setting/setting');
 
+		$catalog_url_gen = new Url('');
+
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('sociallogin', $this->request->post);
 
@@ -47,29 +49,36 @@ class ControllerModuleSociallogin extends Controller {
 		$this->data['text_help'] = $this->language->get('text_help');
 
 		$this->data['entry_status'] = $this->language->get('entry_status');
+		$this->data['entry_auth_url'] = $this->language->get('entry_auth_url');
+
 		$this->data['text_enabled'] = $this->language->get('text_enabled');
 		$this->data['text_disabled'] = $this->language->get('text_disabled');
 
 		$this->data['entry_vkontakte_appid'] = $this->language->get('entry_vkontakte_appid');
 		$this->data['entry_vkontakte_description'] = $this->language->get('entry_vkontakte_description');
 		$this->data['entry_vkontakte_appsecret'] = $this->language->get('entry_vkontakte_appsecret');
+		$this->data['entry_vkontakte_auth_url'] = $catalog_url_gen->link('module/sociallogin/vk');
 
 		$this->data['entry_facebook_appid'] = $this->language->get('entry_facebook_appid');
 		$this->data['entry_facebook_description'] = $this->language->get('entry_facebook_description');
 		$this->data['entry_facebook_appsecret'] = $this->language->get('entry_facebook_appsecret');
+		$this->data['entry_facebook_auth_url'] = $catalog_url_gen->link('module/sociallogin/fb');
 
 		$this->data['entry_ok_appid'] = $this->language->get('entry_ok_appid');
 		$this->data['entry_ok_description'] = $this->language->get('entry_ok_description');
 		$this->data['entry_ok_appsecret'] = $this->language->get('entry_ok_appsecret');
 		$this->data['entry_ok_apppublic'] = $this->language->get('entry_ok_apppublic');
+		$this->data['entry_ok_auth_url'] = $catalog_url_gen->link('module/sociallogin/ok');
 
 		$this->data['entry_twitter_appid'] = $this->language->get('entry_twitter_appid');
 		$this->data['entry_twitter_description'] = $this->language->get('entry_twitter_description');
 		$this->data['entry_twitter_consumerkey'] = $this->language->get('entry_twitter_consumerkey');
 		$this->data['entry_twitter_consumersecret'] = $this->language->get('entry_twitter_consumersecret');
+		$this->data['entry_twitter_auth_url'] = $catalog_url_gen->link('module/sociallogin/tw');
 
 		$this->data['entry_instagram'] = $this->language->get('entry_instagram');
 		$this->data['entry_instagram_description'] = $this->language->get('entry_instagram_description');
+		$this->data['entry_instagram_auth_url'] = $catalog_url_gen->link('module/sociallogin/instagram');
 
 		$this->data['button_save_go'] = $this->language->get('button_save_go');
 		$this->data['button_save_stay'] = $this->language->get('button_save_stay');

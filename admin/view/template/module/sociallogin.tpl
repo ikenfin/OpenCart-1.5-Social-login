@@ -39,34 +39,6 @@
       <form action="<?php echo $action; ?>" method="post" id="form">
         <input type="hidden" name="stay" id="stayid" value="1">
 
-        <div id="tab-instagram">
-          <table class="form">
-            <tbody>
-              <tr>
-                <td colspan="2">
-                  <?php echo $entry_instagram_description; ?>
-                </td>
-              </tr>
-              <tr>
-                <td><?php echo $entry_status; ?></td>
-                <td>
-                  <select name="sociallogin_instagram_status">
-                    <?php if ($sociallogin_instagram_status) { ?>
-                    <option value="1" selected="selected"
-                    ><?php echo $text_enabled; ?></option>
-                    <option value="0"><?php echo $text_disabled; ?></option>
-                    <?php } else { ?>
-                    <option value="1"><?php echo $text_enabled; ?></option>
-                    <option value="0" selected="selected"
-                    ><?php echo $text_disabled; ?></option>
-                    <?php } ?>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
         <div id="tab-vkontakte">
           <table class="form">
             <tbody>
@@ -98,6 +70,11 @@
               <tr>
                 <td><?php echo $entry_vkontakte_appsecret; ?></td>
                 <td><input type="text" name="sociallogin_vkontakte_appsecret" style="width: 300px;" value="<?php echo $sociallogin_vkontakte_appsecret; ?>" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="text" value="<?php echo $entry_vkontakte_auth_url; ?>" onclick="this.select()">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -137,6 +114,11 @@
                 <td><?php echo $entry_twitter_consumersecret; ?></td>
                 <td><input type="text" name="sociallogin_twitter_consumersecret" style="width: 300px;" value="<?php echo $sociallogin_twitter_consumersecret; ?>" /></td>
               </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="text" value="<?php echo $entry_twitter_auth_url; ?>" onclick="this.select()">
+                </td>
+              </tr>
             </table>
           </tbody>
         </div>
@@ -172,6 +154,44 @@
               <tr>
                 <td><?php echo $entry_facebook_appsecret; ?></td>
                 <td><input type="text" name="sociallogin_facebook_appsecret" style="width: 300px;" value="<?php echo $sociallogin_facebook_appsecret; ?>" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="text" value="<?php echo $entry_facebook_auth_url; ?>" onclick="this.select()">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="tab-instagram">
+          <table class="form">
+            <tbody>
+              <tr>
+                <td colspan="2">
+                  <?php echo $entry_instagram_description; ?>
+                </td>
+              </tr>
+              <tr>
+                <td><?php echo $entry_status; ?></td>
+                <td>
+                  <select name="sociallogin_instagram_status">
+                    <?php if ($sociallogin_instagram_status) { ?>
+                    <option value="1" selected="selected"
+                    ><?php echo $text_enabled; ?></option>
+                    <option value="0"><?php echo $text_disabled; ?></option>
+                    <?php } else { ?>
+                    <option value="1"><?php echo $text_enabled; ?></option>
+                    <option value="0" selected="selected"
+                    ><?php echo $text_disabled; ?></option>
+                    <?php } ?>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="text" value="<?php echo $entry_instagram_auth_url; ?>" onclick="this.select()">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -212,6 +232,11 @@
               <tr>
                 <td><?php echo $entry_ok_appsecret; ?></td>
                 <td><input type="text" name="sociallogin_ok_appsecret" style="width: 300px;" value="<?php echo $sociallogin_ok_appsecret; ?>" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="text" value="<?php echo $entry_ok_auth_url; ?>" onclick="this.select()">
+                </td>
               </tr>
             </tbody>
           </table>
