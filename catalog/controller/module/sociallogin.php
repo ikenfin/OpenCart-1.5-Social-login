@@ -256,9 +256,10 @@ class ControllerModuleSociallogin extends Controller {
 			if (!empty($data['access_token'])) {
 				$app_public_key = $this->config->get('sociallogin_ok_apppublic');
 
+				// Здесь немного магии
+				// API одноклассников ожидает подпись сформированную по определённому алгоритму
+				// в нашем случае приложению нужен всего один запрос, поэтому генерация подписи захардкожена
 				$__secretKey = strtolower(md5($data['access_token'] . $client_secret));
-				$CURRENT_URI = $_COOKIE['soclogin_ref'];
-
 				$__signature = strtolower(md5('application_key='.$app_public_key . 'format=jsonmethod=users.getCurrentUser' . $__secretKey));
 
 				$url = $this->createUrl('https://api.ok.ru/fb.do', array(
@@ -293,11 +294,11 @@ class ControllerModuleSociallogin extends Controller {
 				if($this->model_account_customer->getTotalCustomersByEmail($userdata['email'])){
 					// login without password
 					$this->customer->login($userdata['email'], "", true);
-					$this->redirect($CURRENT_URI);
+					$this->redirect($this->getReferer());
 				}else{
 					$userdata = $this->saveAndLogin($userdata);
 					$this->mailPassword($userdata);
-					$this->redirect($CURRENT_URI);
+					$this->redirect($this->getReferer());
 				}
 			}
 		}
@@ -329,7 +330,6 @@ class ControllerModuleSociallogin extends Controller {
 		}
 		else {
 			$code = $this->request->get['code'];
-			$CURRENT_URI = $_COOKIE['soclogin_ref'];
 
 			$client_secret = $this->config->get('sociallogin_facebook_appsecret');
 
