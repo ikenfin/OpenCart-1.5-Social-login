@@ -10,7 +10,7 @@ class ControllerModuleSociallogin extends Controller {
 	*/
 	protected function makeRequest ($url, $post = false, $postfields = array()) {
 		$response = null;
-		
+
 		if(extension_loaded('curl') ){
 			$c = curl_init($url);
 			curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
@@ -127,6 +127,9 @@ class ControllerModuleSociallogin extends Controller {
 		Авторизация Вконтакте
 	*/
 	public function vk () {
+		// версия api вконтакте
+		$api_v = '5.73';
+
 		$this->language->load('module/sociallogin');
 		// Check if module is on
 		if (!$this->config->get('sociallogin_vkontakte_status', false)) {
@@ -145,7 +148,8 @@ class ControllerModuleSociallogin extends Controller {
 				'scope' => 'SETTINGS,email',
 				'redirect_uri' => $redirect_uri,
 				'display' => 'page',
-				'response_type' => 'code'
+				'response_type' => 'code',
+				'v' => $api_v
 			));
 
 			$this->redirect($api_url);
@@ -162,7 +166,8 @@ class ControllerModuleSociallogin extends Controller {
 				'client_id' => $client_id,
 				'client_secret' => $client_secret,
 				'code' => $code,
-				'redirect_uri' => $redirect_uri
+				'redirect_uri' => $redirect_uri,
+				'v' => $api_v
 			));
 
 			$response = $this->makeRequest($url);
@@ -172,7 +177,8 @@ class ControllerModuleSociallogin extends Controller {
 				$graph_url = $this->createUrl('https://api.vk.com/method/users.get', array(
 					'uids' => $data['user_id'],
 					'fields' => 'uid,first_name,last_name',
-					'access_token' => $data['access_token']
+					'access_token' => $data['access_token'],
+					'v' => $api_v
 				));
 
 				$json = $this->makeRequest($graph_url);
@@ -277,7 +283,7 @@ class ControllerModuleSociallogin extends Controller {
 
 				foreach ($data as $key => $val) {
 					switch ($key) {
-						case 'first_name' : 
+						case 'first_name' :
 							$userdata['firstname'] = $val;
 							break;
 						case 'last_name' :
@@ -403,7 +409,7 @@ class ControllerModuleSociallogin extends Controller {
 		$this->load->library('twitter-async/EpiOAuth');
 		$this->load->library('twitter-async/EpiSequence');
 		$this->load->library('twitter-async/EpiTwitter');
-		
+
 		$twitter = new EpiTwitter(
 			$this->config->get('sociallogin_twitter_consumerkey'),
 			$this->config->get('sociallogin_twitter_consumersecret')
